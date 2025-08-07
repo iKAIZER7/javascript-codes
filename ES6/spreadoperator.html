@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spread operator and rest parameter</title>
+    <style>
+
+    body {
+
+      font-family: Arial, sans-serif;
+
+      line-height: 1.6;
+
+      max-width: 900px;
+
+      margin: 0 auto;
+
+      padding: 20px;
+
+      background-color: #f5f5f5;
+
+    }
+
+    h1 {
+
+      color: #2c3e50;
+
+      border-bottom: 2px solid #3498db;
+
+      padding-bottom: 10px;
+
+    }
+
+    h2 {
+
+      color: #2980b9;
+
+    }
+
+    .container {
+
+      background-color: white;
+
+      padding: 20px;
+
+      border-radius: 8px;
+
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+    }
+
+    .demo-section {
+
+      margin: 20px 0;
+
+      padding: 15px;
+
+      background-color: #e8f4fc;
+
+      border-radius: 5px;
+
+    }
+
+    .code-block {
+
+      background-color: #f8f9fa;
+
+      padding: 15px;
+
+      border-left: 4px solid #3498db;
+
+      font-family: 'Courier New', monospace;
+
+      white-space: pre;
+
+      overflow-x: auto;
+
+    }
+
+    .output {
+
+      background-color: #2c3e50;
+
+      color: white;
+
+      padding: 15px;
+
+      border-radius: 5px;
+
+      margin-top: 10px;
+
+      font-family: 'Courier New', monospace;
+
+    }
+
+  </style>
+</head>
+<body>
+    <!--
+    /*
+ES6 provides a new operator called spread operator that consists of three dots (...). 
+The spread operator allows you to spread out elements of an iterable object 
+such as an array, map, or set.
+The spread operator can be used to clone an iterable object or merge iterable objects into one.*/
+    -->
+     <div class="container">
+        <h1>ES6 Spread Operator and Rest Parameter</h1>
+        
+        <div class="demo-section">
+            <h2>Spread Operator (...)</h2>
+            <p>The spread operator allows you to spread out elements of an iterable object such as an array.</p>
+            
+            <div class="code-block">
+const odd = [1,3,5,7,9];
+const even = [2,4,6,8,10];
+const all = [...odd, ...even]; //concatenate arrays
+document.write("all: " + JSON.stringify(all) + "&lt;br&gt;");
+
+const combined = [100,200,300, ...even]; //... operator unpacks array
+document.write("combined: " + JSON.stringify(combined) + "&lt;br&gt;");
+const combined1 = [...odd, 333, 222, 111];
+document.write("combined1: " + JSON.stringify(combined1) + "&lt;br&gt;");
+            </div>
+            
+            <div class="output">
+                <script>
+                    const odd = [1,3,5,7,9];
+                    const even = [2,4,6,8,10];
+                    const all = [...odd, ...even];
+                    document.write("all: " + JSON.stringify(all) + "<br>");
+
+                    const combined = [100,200,300, ...even];
+                    document.write("combined: " + JSON.stringify(combined) + "<br>");
+                    const combined1 = [...odd, 333, 222, 111];
+                    document.write("combined1: " + JSON.stringify(combined1) + "<br>");
+                </script>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>Rest Parameter (...)</h2>
+            <p>The rest parameter packs elements into an array. It's used in functions to accept variable number of arguments.</p>
+            
+            <div class="code-block">
+function display(num1, num2, ...args) {
+    document.write("num1: " + num1 + ", num2: " + num2 + 
+                  ", args: " + JSON.stringify(args) + "&lt;br&gt;");
+}
+
+display(300, 400, 66, 77, 88, 99, 1000);
+display(30, 40, 66, 80, 54);
+display(10, 20);
+            </div>
+            
+            <div class="output">
+                <script>
+                    function display(num1, num2, ...args) {
+                        document.write("num1: " + num1 + ", num2: " + num2 + 
+                                      ", args: " + JSON.stringify(args) + "<br>");
+                    }
+
+                    document.write("display(300, 400, 66, 77, 88, 99, 1000):<br>");
+                    display(300, 400, 66, 77, 88, 99, 1000);
+                    
+                    document.write("<br>display(30, 40, 66, 80, 54):<br>");
+                    display(30, 40, 66, 80, 54);
+                    
+                    document.write("<br>display(10, 20):<br>");
+                    display(10, 20);
+                </script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

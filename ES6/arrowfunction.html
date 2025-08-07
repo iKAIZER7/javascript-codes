@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow functions basic</title>
+     <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+        button { padding: 8px 12px; margin: 5px; }
+        .output { background: #f0f0f0; padding: 10px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+     <h1>Arrow Function Basics</h1>
+    
+    <div>
+        <h3>1. Basic Syntax</h3>
+        <button onclick="runBasic()">Run Basic Example</button>
+        <div id="basicOutput" class="output"></div>
+    </div>
+
+    <div>
+        <h3>2. Array Operations</h3>
+        <button onclick="runArray()">Run Array Example</button>
+        <div id="arrayOutput" class="output"></div>
+    </div>
+
+    <script>
+        function display(id, msg) {
+            document.getElementById(id).innerHTML = msg;
+        }
+
+        function runBasic() {
+            const add = (a, b) => a + b;
+            const square = x => x * x;
+            const greet = () => "Hello!";
+            
+            let output = `add(2,3) = ${add(2,3)}<br>`;
+            output += `square(4) = ${square(4)}<br>`;
+            output += `greet() = ${greet()}`;
+            
+            display('basicOutput', output);
+        }
+
+        function runArray() {
+            const nums = [1,2,3,4,5];
+            const squares = nums.map(n => n * n); // Arrow funs used as parameters in other functions
+            const evens = nums.filter(n => n % 2 === 0);
+            
+            let output = `Original: ${nums}<br>`;
+            output += `Squares: ${squares}<br>`;
+            output += `Evens: ${evens}`;
+            
+            display('arrayOutput', output);
+        }
+    </script>
+
+</body>
+</html>

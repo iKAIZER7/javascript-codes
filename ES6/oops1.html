@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OOPs in JS</title>
+</head>
+<body>
+    <script>
+        class Employee{
+
+            // Encapsulation-declare private variable
+            #id;
+            #name;
+            #salary;
+
+            // Constructor - initialise object properties
+
+            constructor(id,name,salary){
+                this.id=id;
+                this.name=name;
+                this.salary=salary;
+            }
+             displayDetails(){
+            document.write("<br> ***************************** ");
+            document.write("<br>Employee ID     : "+this.id);
+            document.write("<br>Employee Name   : "+this.name);
+            this.salary =this.salary+(this.salary*.10);
+            document.write("<br>Employee Salary : "+this.salary);
+        }
+       
+
+        }
+         var e1=new Employee(101,"Martin Roy",5000);
+         var e2=new Employee(102,"Jhone doe",6000);
+         var e3=new Employee(103,"Brendon Mccullum",10000);
+         e1.displayDetails();
+         e2.displayDetails();
+         e3.displayDetails();
+    </script>
+</body>
+</html>
