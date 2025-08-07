@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advance Promise Example</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+        button { padding: 8px 16px; background: #2196F3; color: white; border: none; cursor: pointer; margin: 5px; }
+        .output { background: #f5f5f5; padding: 15px; margin-top: 10px; white-space: pre-wrap; }
+        .section { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Advanced Promise Examples</h1>
+    
+    <div class="section">
+        <h2>1. Promise Chaining</h2>
+        <button onclick="runChaining()">Run Chaining Example</button>
+        <div id="chainOutput" class="output">Click to run chaining example</div>
+    </div>
+
+    <div class="section">
+        <h2>2. Promise.all()</h2>
+        <button onclick="runPromiseAll()">Run Promise.all()</button>
+        <div id="allOutput" class="output">Click to run Promise.all example</div>
+    </div>
+
+    <script>
+        // Helper function to simulate async operations
+        function asyncOperation(name, delay, shouldFail = false) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if (shouldFail) {
+                        reject(`${name} failed after ${delay}ms`);
+                    } else {
+                        resolve(`${name} completed after ${delay}ms`);
+                    }
+                }, delay);
+            });
+        }
+
+        // 1. Promise Chaining
+        function runChaining() {
+            const output = document.getElementById('chainOutput');
+            output.textContent = "Starting chained operations...";
+
+            asyncOperation("Step 1", 800)
+                .then(result => {
+                    output.textContent += `\n${result}`;
+                    return asyncOperation("Step 2", 600);
+                })
+                .then(result => {
+                    output.textContent += `\n${result}`;
+                    return asyncOperation("Step 3", 400);
+                })
+                .then(result => {
+                    output.textContent += `\n${result}\n\nAll steps completed successfully!`;
+                })
+                .catch(error => {
+                    output.textContent += `\n\nError: ${error}`;
+                });
+        }
+
+        // 2. Promise.all()
+        function runPromiseAll() {
+            const output = document.getElementById('allOutput');
+            output.textContent = "Starting parallel operations...";
+
+            const promises = [
+                asyncOperation("Task 1", 1000),
+                asyncOperation("Task 2", 700),
+                asyncOperation("Task 3", 500)
+            ];
+
+            Promise.all(promises)
+                .then(results => {
+                    output.textContent += "\n\nAll tasks completed:\n";
+                    results.forEach(result => {
+                        output.textContent += `- ${result}\n`;
+                    });
+                })
+                .catch(error => {
+                    output.textContent += `\n\nError: ${error}`;
+                });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic promise example</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+        button { padding: 8px 16px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+        .output { background: #f5f5f5; padding: 15px; margin-top: 10px; border-left: 4px solid #4CAF50; }
+        .error { border-left-color: #f44336; background: #ffebee; }
+    </style>
+    
+    <!-- /*
+A Promise represents something that is eventually fulfilled. 
+A Promise can either be rejected or resolved based on the operation outcome.
+ES6 Promise is the easiest way to work with asynchronous programming in JavaScript. 
+Asynchronous programming includes the running of processes individually from the main 
+thread and notifies the main thread when it gets complete. 
+Prior to the Promises, Callbacks were used to perform asynchronous programming.
+
+The Promise represents the completion of an asynchronous operation. 
+It returns a single value based on the operation being rejected or resolved. 
+There are mainly three stages of the Promise, which are shown below:
+
+Pending - It is the initial state of each Promise. It represents that the result has not been computed yet.
+Fulfilled - It means that the operation has completed.
+Rejected - It represents a failure that occurs during computation.
+*/ -->
+</head>
+<body>
+    <h1>Basic Promise Example</h1>
+    
+    <button onclick="runExample()">Run Promise Example</button>
+    <div id="output" class="output">Click the button to run the example</div>
+
+    <script>
+        function display(message, isError = false) {
+            const output = document.getElementById('output');
+            output.textContent = message;
+            output.className = isError ? 'output error' : 'output';
+        }
+
+        function runExample() {
+            display("Creating a new Promise...");
+
+            const myPromise = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    const success = Math.random() > 0.5;
+                    if (success) {
+                        resolve("Success! Operation completed.");
+                    } else {
+                        reject("Error! Operation failed.");
+                    }
+                }, 1500);
+            });
+
+            myPromise
+                .then(result => {
+                    display(`Resolved: ${result}`);
+                })
+                .catch(error => {
+                    display(`Rejected: ${error}`, true);
+                })
+                .finally(() => {
+                    const output = document.getElementById('output');
+                    output.textContent += "\n\n(Promise settled - this always runs)";
+                });
+        }
+    </script>
+</body>
+</html>

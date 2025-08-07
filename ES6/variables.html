@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .output {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin-top: 10px;
+            font-family: monospace;
+            white-space: pre;
+            overflow-x: auto;
+        }
+        .error {
+            border-left-color: #e74c3c;
+            color: #e74c3c;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+     <h1>ES6 Variable Declarations: let, const & var</h1>
+    
+    <div class="section">
+        <h2>var Examples</h2>
+        <p>var has function scope or global scope</p>
+        <button onclick="runVarExample()">Run var Example</button>
+        <div id="varOutput" class="output">Output will appear here...</div>
+    </div>
+
+    <div class="section">
+        <h2>let Examples</h2>
+        <p>let has block scope</p>
+        <button onclick="runLetExample()">Run let Example</button>
+        <div id="letOutput" class="output">Output will appear here...</div>
+    </div>
+
+    <div class="section">
+        <h2>const Examples</h2>
+        <p>const has block scope and cannot be reassigned</p>
+        <button onclick="runConstExample()">Run const Example</button>
+        <div id="constOutput" class="output">Output will appear here...</div>
+    </div>
+
+    <div class="section">
+        <h2>Loop Examples</h2>
+        <p>Comparing var and let in loops</p>
+        <button onclick="runLoopExamples()">Run Loop Examples</button>
+        <div id="loopOutput" class="output">Output will appear here...</div>
+    </div>
+
+    <script>
+        // Helper function to display output
+        function displayOutput(elementId, message, isError = false) {
+            const outputElement = document.getElementById(elementId);
+            if (isError) {
+                outputElement.classList.add('error');
+            } else {
+                outputElement.classList.remove('error');
+            }
+            outputElement.textContent = message;
+        }
+
+        // ===== VAR EXAMPLES =====
+        function runVarExample() {
+            let output = '';
+            
+            // Example 1: Function scope
+            function varScopeExample() {
+                if (true) {
+                    var varVariable = "I'm a var";
+                    output += `Inside block: ${varVariable}\n`;
+                }
+                output += `Outside block: ${varVariable}\n`;
+            }
+            varScopeExample();
+            
+            // Example 2: Hoisting
+            output += `Before declaration: ${typeof hoistedVar}\n`;
+            var hoistedVar = "I'm hoisted";
+            output += `After declaration: ${hoistedVar}\n`;
+            
+            // Example 3: Re-declaration
+            var x = 1;
+            var x = 2;
+            output += `Re-declared var x: ${x}\n`;
+            
+            displayOutput('varOutput', output);
+        }
+
+        // ===== LET EXAMPLES =====
+        function runLetExample() {
+            let output = '';
+            
+            // Example 1: Block scope
+            function letScopeExample() {
+                if (true) {
+                    let letVariable = "I'm a let";
+                    output += `Inside block: ${letVariable}\n`;
+                }
+                try {
+                    output += `Outside block: ${letVariable}\n`;
+                } catch (e) {
+                    output += `Outside block: Error - ${e.message}\n`;
+                }
+            }
+            letScopeExample();
+            
+            // Example 2: Temporal Dead Zone
+            try {
+                output += `Before declaration: ${hoistedLet}\n`;
+            } catch (e) {
+                output += `Before declaration: Error - ${e.message}\n`;
+            }
+            let hoistedLet = "I'm a let";
+            output += `After declaration: ${hoistedLet}\n`;
+            
+            // Example 3: No re-declaration
+            let y = 1;
+            try {
+                let y = 2; // Different scope is allowed
+                output += `Different scope re-declaration: ${y}\n`;
+                // let y = 3; // Same scope would error
+            } catch (e) {
+                output += `Re-declaration error: ${e.message}\n`;
+            }
+            
+            displayOutput('letOutput', output);
+        }
+
+        // ===== CONST EXAMPLES =====
+        function runConstExample() {
+            let output = '';
+            
+            // Example 1: Block scope
+            function constScopeExample() {
+                const PI = 3.14159;
+                output += `PI value: ${PI}\n`;
+                
+                try {
+                    PI = 3.14;
+                } catch (e) {
+                    output += `Reassignment error: ${e.message}\n`;
+                }
+                
+                if (true) {
+                    const BLOCK_CONST = "I'm in a block";
+                    output += `Inside block: ${BLOCK_CONST}\n`;
+                }
+                
+                try {
+                    output += `Outside block: ${BLOCK_CONST}\n`;
+                } catch (e) {
+                    output += `Outside block: Error - ${e.message}\n`;
+                }
+            }
+            constScopeExample();
+            
+            // Example 2: Object properties
+            const person = { name: "Alice", age: 30 };
+            output += `Original person: ${JSON.stringify(person)}\n`;
+            
+            person.age = 31;
+            output += `Modified person: ${JSON.stringify(person)}\n`;
+            
+            try {
+                person = { name: "Bob" };
+            } catch (e) {
+                output += `Reassignment error: ${e.message}\n`;
+            }
+            
+            displayOutput('constOutput', output);
+        }
+
+        // ===== LOOP EXAMPLES =====
+        function runLoopExamples() {
+            let output = 'Loop examples:\n\n';
+            
+            // var in loop
+            output += 'Using var:\n';
+            for (var i = 0; i < 3; i++) {
+                setTimeout(() => {
+                    output += `var i: ${i}\n`;
+                    displayOutput('loopOutput', output);
+                }, 100 * (i + 1));
+            }
+            
+            // let in loop
+            output += '\nUsing let:\n';
+            for (let j = 0; j < 3; j++) {
+                setTimeout(() => {
+                    output += `let j: ${j}\n`;
+                    displayOutput('loopOutput', output);
+                }, 100 * (j + 4));
+            }
+            
+            displayOutput('loopOutput', output);
+        }
+    </script>
+</body>
+</html>

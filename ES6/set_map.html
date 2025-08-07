@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #2980b9;
+            margin-top: 30px;
+        }
+        .container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .demo-section {
+            background-color: #e8f4fc;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        .output {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+        }
+        .output-title {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1>ES6 Map and Set Examples</h1>
+        
+        <div class="demo-section">
+            <h2>Map Examples</h2>
+            <p>A Map holds key-value pairs where keys can be any datatype.</p>
+            
+            <div class="code-block">
+// Creating a Map
+const userMap = new Map();
+
+// Setting values
+userMap.set('name', 'Alice');
+userMap.set('age', 30);
+userMap.set('isAdmin', true);
+
+// Getting values
+console.log(userMap.get('name')); // Alice
+
+// Checking size
+console.log(userMap.size); // 3
+
+// Iterating
+userMap.forEach((value, key) => {
+    console.log(`${key}: ${value}`);
+});
+
+// Converting to array
+console.log([...userMap.entries()]);
+            </div>
+            
+            <div class="output">
+                <div class="output-title">Map Output:</div>
+                <div id="map-output"></div>
+            </div>
+        </div>
+        
+        <div class="demo-section">
+            <h2>Set Examples</h2>
+            <p>A Set stores unique values of any type.</p>
+            
+            <div class="code-block">
+// Creating a Set
+const numberSet = new Set();
+
+// Adding values
+numberSet.add(1);
+numberSet.add(2);
+numberSet.add(3);
+numberSet.add(2); // Duplicate - won't be added
+
+// Checking size
+console.log(numberSet.size); // 3
+
+// Checking for values
+console.log(numberSet.has(2)); // true
+
+// Iterating
+numberSet.forEach(value => {
+    console.log(value);
+});
+
+// Converting to array
+console.log([...numberSet]);
+            </div>
+            
+            <div class="output">
+                <div class="output-title">Set Output:</div>
+                <div id="set-output"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to display output in the HTML
+        function displayOutput(selector, content) {
+            const element = document.querySelector(selector);
+            element.innerHTML += content + '<br>';
+        }
+
+        // Clear output divs
+        document.getElementById('map-output').innerHTML = '';
+        document.getElementById('set-output').innerHTML = '';
+
+        // Map Examples
+        (function() {
+            const output = document.getElementById('map-output');
+            
+            // Creating a Map
+            const userMap = new Map();
+
+            // Setting values
+            userMap.set('name', 'Alice');
+            userMap.set('age', 30);
+            userMap.set('isAdmin', true);
+
+            // Getting values
+            output.innerHTML += `userMap.get('name'): ${userMap.get('name')}<br>`;
+
+            // Checking size
+            output.innerHTML += `userMap.size: ${userMap.size}<br><br>`;
+
+            // Iterating
+            output.innerHTML += 'Iterating with forEach:<br>';
+            userMap.forEach((value, key) => {
+                output.innerHTML += `${key}: ${value}<br>`;
+            });
+
+            // Converting to array
+            output.innerHTML += '<br>Converted to array:<br>';
+            output.innerHTML += JSON.stringify([...userMap.entries()]);
+        })();
+
+        // Set Examples
+        (function() {
+            const output = document.getElementById('set-output');
+            
+            // Creating a Set
+            const numberSet = new Set();
+
+            // Adding values
+            numberSet.add(1);
+            numberSet.add(2);
+            numberSet.add(3);
+            numberSet.add(2); // Duplicate - won't be added
+
+            // Checking size
+            output.innerHTML += `numberSet.size: ${numberSet.size}<br>`;
+
+            // Checking for values
+            output.innerHTML += `numberSet.has(2): ${numberSet.has(2)}<br><br>`;
+
+            // Iterating
+            output.innerHTML += 'Iterating with forEach:<br>';
+            numberSet.forEach(value => {
+                output.innerHTML += `${value}<br>`;
+            });
+
+            // Converting to array
+            output.innerHTML += '<br>Converted to array:<br>';
+            output.innerHTML += JSON.stringify([...numberSet]);
+        })();
+    </script>
+</body>
+</html>

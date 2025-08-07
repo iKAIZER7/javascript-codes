@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arrow Functions - advanced</title>
+    <style>
+        
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+        button { padding: 8px 12px; margin: 5px; }
+        .output { background: #f0f0f0; padding: 10px; margin-top: 10px; }
+    </style>
+    
+    
+</head>
+<body>
+     <h1>Advanced Arrow Functions</h1>
+    
+    <div>
+        <h3>1. 'this' Context</h3>
+        <button onclick="runThis()">Run 'this' Example</button>
+        <div id="thisOutput" class="output"></div>
+    </div>
+
+    <div>
+        <h3>2. Object Literals</h3>
+        <button onclick="runObject()">Run Object Example</button>
+        <div id="objectOutput" class="output"></div>
+    </div>
+
+    <script>
+        function display(id, msg) {
+            document.getElementById(id).innerHTML = msg;
+        }
+
+        function runThis() {
+            let output = "";
+            const person = {
+                name: "Alice",
+                traditional: function() {
+                    setTimeout(function() {
+                        output += `Traditional: ${this.name}<br>`;
+                        display('thisOutput', output);
+                    }, 100);
+                },
+                arrow: function() {
+                    setTimeout(() => {
+                        output += `Arrow: ${this.name}`;
+                        display('thisOutput', output);
+                    }, 100);
+                }
+            };
+            
+            person.traditional();
+            person.arrow();
+        }
+
+        function runObject() {
+            const createUser = (name, age) => ({ name, age });
+            const user = createUser("Bob", 30);
+            
+            const calc = {
+                add: (a,b) => a + b,
+                multiply: (a,b) => a * b
+            };
+            
+            let output = `User: ${JSON.stringify(user)}<br>`;
+            output += `5 + 3 = ${calc.add(5,3)}<br>`;
+            output += `5 * 3 = ${calc.multiply(5,3)}`;
+            
+            display('objectOutput', output);
+        }
+            </script>
+</body>
+</html>
